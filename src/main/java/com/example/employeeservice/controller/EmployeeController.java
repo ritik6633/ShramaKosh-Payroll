@@ -26,5 +26,47 @@ public class EmployeeController {
         }
     }
 
+    @GetMapping("/getAllEmployees")
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        List<Employee> employees = employeeServices.getAllEmployees();
+        if (employees.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(employees);
+        }
+    }
+
+    @GetMapping("/getEmployeeById")
+    public ResponseEntity<Employee> getEmployeeById(@RequestParam long id) {
+        Employee employee = employeeServices.getEmployeeById(id);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(employee);
+        }
+    }
+
+
+    @GetMapping("/getEmployeeByEmail")
+    public ResponseEntity<Employee> getEmployeeByEmail(@RequestParam String email) {
+        Employee employee = employeeServices.getEmployeeByEmail(email);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(employee);
+        }
+    }
+
+    @GetMapping("/getEmployeeByEmployeeCode")
+    public ResponseEntity<Employee> getEmployeeByEmployeeCode(@RequestParam String employeeCode) {
+        Employee employee = employeeServices.getEmployeeByEmployeeCode(employeeCode);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(employee);
+        }
+    }
+
+
 
 }

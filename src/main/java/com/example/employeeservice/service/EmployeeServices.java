@@ -25,4 +25,40 @@ public class EmployeeServices {
     }
 
 
+    public List<Employee> getAllEmployees() {
+        List<Employee> employees = employeeRepo.findAll();
+        if (employees.isEmpty()) {
+            return Collections.emptyList();
+        } else {
+            return employees;
+        }
+    }
+
+    public Employee getEmployeeById(long id) {
+        Employee employee = employeeRepo.findById(id);
+        if (employee == null) {
+            return null;
+        } else {
+            return employee;
+        }
+    }
+
+
+    public Employee getEmployeeByEmail(String email) {
+        Employee employee = employeeRepo.findByEmail(email);
+        if (employee == null) {
+            return null;
+        } else {
+            return employee;
+        }
+    }
+
+    public Employee getEmployeeByEmployeeCode(String employeeCode) {
+        Employee employee = employeeRepo.findByEmployeeCode(employeeCode);
+        if (employee == null) {
+            return null;
+        } else {
+            return employee;
+        }
+    }
 }
