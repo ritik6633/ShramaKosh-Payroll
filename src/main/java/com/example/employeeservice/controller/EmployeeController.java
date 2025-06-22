@@ -1,4 +1,5 @@
 package com.example.employeeservice.controller;
+import com.example.employeeservice.model.CustomEmployeeData;
 import com.example.employeeservice.model.Employee;
 import com.example.employeeservice.service.EmployeeServices;
 import jakarta.persistence.Entity;
@@ -29,16 +30,13 @@ public class EmployeeController {
     @GetMapping("/getAllEmployees")
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeServices.getAllEmployees();
-        if (employees.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(employees);
-        }
+        return ResponseEntity.ok().body(employees);
     }
 
-    @GetMapping("/getEmployeeById")
-    public ResponseEntity<Employee> getEmployeeById(@RequestParam long id) {
-        Employee employee = employeeServices.getEmployeeById(id);
+
+    @GetMapping("/getEmployeeById/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable(name="id") long id1) {
+        Employee employee = employeeServices.getEmployeeById(id1);
         if (employee == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -47,19 +45,21 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/getEmployeeByEmail")
-    public ResponseEntity<Employee> getEmployeeByEmail(@RequestParam String email) {
-        Employee employee = employeeServices.getEmployeeByEmail(email);
-        if (employee == null) {
+
+    @GetMapping("/getEmployeeByEmail/{email}")
+    public ResponseEntity<String> getEmployeeByEmail(@PathVariable(name = "email") String email1) {
+        String cc = employeeServices.getEmployeeByEmail(email1);
+        if (cc == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(employee);
+            return ResponseEntity.ok(cc);
         }
     }
 
-    @GetMapping("/getEmployeeByEmployeeCode")
-    public ResponseEntity<Employee> getEmployeeByEmployeeCode(@RequestParam String employeeCode) {
-        Employee employee = employeeServices.getEmployeeByEmployeeCode(employeeCode);
+
+    @GetMapping("/getEmployeeByEmployeeCode/{empcode}")
+    public ResponseEntity<Employee> getEmployeeByEmployeeCode(@PathVariable (name = "empcode") String empC) {
+        Employee employee = employeeServices.getEmployeeByEmployeeCode(empC);
         if (employee == null) {
             return ResponseEntity.notFound().build();
         } else {
